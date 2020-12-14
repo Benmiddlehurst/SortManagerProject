@@ -2,23 +2,10 @@ package com.sparta.ben.sorters;
 
 import java.util.Arrays;
 
-public class MergeSorter {
-
-    // divide array into single numbers
-    // sort into 2 arrays
-    //merge sorted arrays whilst sorting
-        //
-
-//    public static int[] leftArray(int[] leftArray){
-//
-//    }
-
-
-    public static int[] mergeSorter(int[] array, int arrayLength){
-        //get array length
-        arrayLength = array.length;
-        // if function to see if length is odd
-        // length /2
+public class MergeSorter implements Sortable {
+    @Override
+    public int[] sortArray(int[] array){
+        int arrayLength = array.length;
         int arrayLengthFirstHalf;
         int arrayLengthSecondHalf;
         if (arrayLength % 2 == 0){
@@ -42,7 +29,6 @@ public class MergeSorter {
             k++;
         }
 
-
         Arrays.sort(leftArray, 0, arrayLengthFirstHalf);
         Arrays.sort(rightArray, 0, arrayLengthSecondHalf);
 
@@ -65,16 +51,8 @@ public class MergeSorter {
         System.arraycopy(leftArray,leftStart ,tempArray,index , arrayLengthFirstHalf-leftStart);
         System.arraycopy(rightArray,rightStart ,tempArray,index , arrayLengthSecondHalf-rightStart);
 
-
         array = tempArray;
 
         return array;
-
-
-
-
     }
-
-
-
 }

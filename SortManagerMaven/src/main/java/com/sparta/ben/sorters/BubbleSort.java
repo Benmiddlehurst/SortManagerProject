@@ -2,14 +2,15 @@ package com.sparta.ben.sorters;
 
 
 import com.sparta.ben.arrayMethods.Swap;
+import com.sparta.ben.mainStarterPrinter.Printer;
 
-public class BubbleSort {
+import java.util.Arrays;
 
-//    int firstTermSort = 0;
-//    int secondTermSort = 1;
+public class BubbleSort implements Sortable {
 
-    public static int[] bubbleSortArray(int[] array, int arrayLength) {
-        arrayLength = array.length;
+    @Override
+    public int[] sortArray(int[] array) {
+        int arrayLength = array.length;
          int firstTermSort = 0;
          int secondTermSort = 1;
 
@@ -27,14 +28,6 @@ public class BubbleSort {
         return array;
     }
 
-//    public static boolean isArraySorted() {
-//
-//        return false;
-//    }
 
 
-    //compare first 2 values
-    //if n1 < n2 swap them
-    // iterations to compare all
-    //parallelSort(byte[] a, int fromIndex, int toIndex)
 }

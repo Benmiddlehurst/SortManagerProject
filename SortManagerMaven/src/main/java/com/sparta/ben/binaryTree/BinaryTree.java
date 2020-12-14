@@ -1,7 +1,16 @@
 package com.sparta.ben.binaryTree;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class BinaryTree {
+
     private final Node rootNode;
+
+    public int getRootNode(){
+        return rootNode.getNodeValue();
+    }
 
     public BinaryTree(final int element) {
         rootNode = new Node(element);
@@ -11,6 +20,7 @@ public class BinaryTree {
         addNodeToTree(rootNode, element);
     }
 
+    public void addElements(int[] elements) {addNodesToTree(rootNode, elements);}
 
     public int getNumberOfElements(){
         int nodeCounter = rootNode.getNodeCounter();
@@ -37,6 +47,29 @@ public class BinaryTree {
         node.setNodeCounter(node.getNodeCounter()+1);
     }
 
+    private void addNodesToTree(Node node, int[] elements) {
+        for(int element:elements) {
+
+            if (element == node.getNodeValue()) return;
+
+            if (element < node.getNodeValue()) {
+                if (node.isLeftChildEmpty()) {
+                    node.setLeftChild(new Node(element));
+                } else {
+                    addNodeToTree(node.getLeftChild(), element);
+                }
+
+            } else if (element > node.getNodeValue()) {
+                if (node.isRightChildEmpty()) {
+                    node.setRightChild(new Node(element));
+                } else {
+                    addNodeToTree(node.getRightChild(), element);
+                }
+            }
+            node.setNodeCounter(node.getNodeCounter() + 1);
+        }
+    }
+
     public Node findNode(int element){
         Node node = rootNode;
         while (node != null){
@@ -52,7 +85,6 @@ public class BinaryTree {
         return null;
     }
 
-
     public void getSortedTreeAsc(){
         getSortedTreeAsc(rootNode);
     }
@@ -60,11 +92,9 @@ public class BinaryTree {
         if (node == null){
             return;
         }
-
         getSortedTreeAsc(node.getLeftChild());
         System.out.printf(node.getNodeValue()+ ", ");
         getSortedTreeAsc(node.getRightChild());
-
     }
 
     public void getSortedTreeDesc(){
@@ -77,7 +107,37 @@ public class BinaryTree {
         getSortedTreeDesc(node.getRightChild());
         System.out.printf(node.getNodeValue()+ ", ");
         getSortedTreeDesc(node.getLeftChild());
+    }
 
+    public void printTree(){
+        printTree(rootNode);
+    }
+
+
+    public void printTree(Node rootNode) {
+
+        Queue<Node> currentLevel = new LinkedList<Node>();
+        Queue<Node> nextLevel = new LinkedList<Node>();
+
+        currentLevel.add(rootNode);
+
+        while (!currentLevel.isEmpty()) {
+            Iterator<Node> i = currentLevel.iterator();
+            while (i.hasNext()) {
+                Node currentNode = i.next();
+                if (currentNode.getLeftChild() != null) {
+                    nextLevel.add(currentNode.getLeftChild());
+                }
+                if (currentNode.getRightChild() != null) {
+                    nextLevel.add(currentNode.getRightChild());
+                }
+                System.out.print(currentNode.getNodeValue() + " ");
+            }
+            System.out.println();
+            currentLevel = nextLevel;
+            nextLevel = new LinkedList<Node>();
+
+        }
     }
 }
 
